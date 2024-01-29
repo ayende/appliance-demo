@@ -32,7 +32,6 @@ if (isProdEnv) {
 }
 
 app.get("/api/question", async (req, res) => {
-  console.log(req.query);
   const session = documentStore.openSession();
   const question = await session
     .include("Owner")
@@ -56,7 +55,7 @@ app.get("/api/search", async (req, res) => {
   const tags = Array.isArray(req.query.tag)
     ? req.query.tags
     : [req.query.tag].filter((x) => x);
-  const page = req.query.page || 0;
+  const page = req.query.page || 1;
   const pageSize = req.query.pageSize || 10;
 
   const query = session
@@ -104,7 +103,6 @@ app.get("/api/search", async (req, res) => {
   var tagsEnd = performance.now();
 
   const users = await session.load(results.map((q) => q.Owner));
-  console.log({ numberOfResults });
   res.send({
     data: {
       results,
