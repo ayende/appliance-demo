@@ -40,13 +40,12 @@ function AppHeader() {
   }
 
   useEffect(() => {
-    const community = searchParams.get("community");
-    const tag = searchParams.get("tag");
-    const q = searchParams.get("q");
+    const community = searchParams.get("community") || "";
+    const tag = searchParams.get("tag") || "";
+    const q = searchParams.get("q") || "";
     const page = searchParams.get("page") || 0;
     const orderBy = searchParams.get("orderBy") || "CreationDate";
     setSearchTerm(q || "");
-    if (!q && !community && !tag) return;
     onSearch({ community, q, tag, page, orderBy });
   }, [searchParams, location.search, onSearch]);
 
